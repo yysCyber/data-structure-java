@@ -1,3 +1,4 @@
+import org.jetbrains.annotations.NotNull;
 import java.util.*;
 
 /**
@@ -51,8 +52,8 @@ public class BinarySearchTree<T extends Comparable<T>> {
             rootNode = new Node<>(data);
             size++;
         } else {
-            Node<T> curNode = rootNode;
             Node<T> preNode = null;
+            Node<T> curNode = rootNode;
             while (curNode != null) {
                 preNode = curNode;
                 if (curNode.data.compareTo(data) > 0) {
@@ -98,7 +99,7 @@ public class BinarySearchTree<T extends Comparable<T>> {
      * @param rootNode 根结点
      * @param data     要插入的结点中的数据
      */
-    private void addNodeRecursionOne(Node<T> rootNode, T data) {
+    private void addNodeRecursionOne(@NotNull Node<T> rootNode, @NotNull T data) {
         if (rootNode.data.compareTo(data) == 0) {
             return;
         } else {
@@ -128,7 +129,7 @@ public class BinarySearchTree<T extends Comparable<T>> {
      *
      * @param data 要插入的结点中的数据
      */
-    public void addNodeRecursionTwo(T data) {
+    public void addNodeRecursionTwo(@NotNull T data) {
         rootNode = addNodeRecursionTwo(rootNode, data);
     }
 
@@ -141,18 +142,17 @@ public class BinarySearchTree<T extends Comparable<T>> {
      * @param data     要插入的结点中的数据
      * @return Node
      */
-    private Node<T> addNodeRecursionTwo(Node<T> rootNode, T data) {
+    private Node<T> addNodeRecursionTwo(Node<T> rootNode, @NotNull T data) {
         if (rootNode == null) {
             size++;
             return new Node<>(data);
-        } else {
-            if (rootNode.data.compareTo(data) > 0) {
-                rootNode.leftChildNode = addNodeRecursionTwo(rootNode.leftChildNode, data);
-            } else if (rootNode.data.compareTo(data) < 0) {
-                rootNode.rightChildNode = addNodeRecursionTwo(rootNode.rightChildNode, data);
-            }
-            return rootNode;
         }
+        if (rootNode.data.compareTo(data) > 0) {
+            rootNode.leftChildNode = addNodeRecursionTwo(rootNode.leftChildNode, data);
+        } else if (rootNode.data.compareTo(data) < 0) {
+            rootNode.rightChildNode = addNodeRecursionTwo(rootNode.rightChildNode, data);
+        }
+        return rootNode;
     }
 
     /**
@@ -174,7 +174,7 @@ public class BinarySearchTree<T extends Comparable<T>> {
      * @param rootNode 根结点
      * @param list     List
      */
-    private void inorderTraversalRecursion(Node<T> rootNode, List<T> list) {
+    private void inorderTraversalRecursion(Node<T> rootNode, @NotNull List<T> list) {
         if (rootNode == null) {
             return;
         }
