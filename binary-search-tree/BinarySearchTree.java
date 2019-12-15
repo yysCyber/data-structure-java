@@ -97,7 +97,7 @@ public class BinarySearchTree<T extends Comparable<T>> {
      * “向该二分搜索树中插入结点”的第一种递归方法
      *
      * @param rootNode 根结点
-     * @param data     要插入的结点中的数据
+     * @param data 要插入的结点中的数据
      */
     private void addNodeRecursionOne(@NotNull Node<T> rootNode, @NotNull T data) {
         if (rootNode.data.compareTo(data) == 0) {
@@ -129,7 +129,10 @@ public class BinarySearchTree<T extends Comparable<T>> {
      *
      * @param data 要插入的结点中的数据
      */
-    public void addNodeRecursionTwo(@NotNull T data) {
+    public void addNodeRecursionTwo(T data) {
+        if (data == null) {
+            throw new IllegalArgumentException("Data is null!");
+        }
         rootNode = addNodeRecursionTwo(rootNode, data);
     }
 
@@ -139,7 +142,7 @@ public class BinarySearchTree<T extends Comparable<T>> {
      * 难！！！
      *
      * @param rootNode 根结点
-     * @param data     要插入的结点中的数据
+     * @param data 要插入的结点中的数据
      * @return Node
      */
     private Node<T> addNodeRecursionTwo(Node<T> rootNode, @NotNull T data) {
@@ -357,7 +360,7 @@ public class BinarySearchTree<T extends Comparable<T>> {
      * 
      * 非递归实现
      *
-     * @return 最大的数据 或 null（空树）
+     * @return 最大的数据 或 null（当前为空树的情况下）
      */
     public T getMaxDataNonRecursion() {
         if (rootNode == null) {
@@ -375,7 +378,7 @@ public class BinarySearchTree<T extends Comparable<T>> {
      * 
      * 基于 getMaxDataNodeRecursion 方法递归实现
      *
-     * @return 最大的数据 或 null（空树）
+     * @return 最大的数据 或 null（当前为空树的情况下）
      */
     public T getMaxDataRecursion() {
         if (rootNode == null) {
@@ -396,7 +399,7 @@ public class BinarySearchTree<T extends Comparable<T>> {
      * 
      * 非递归实现
      *
-     * @return 最小的数据 或 null（空树）
+     * @return 最小的数据 或 null（当前为空树的情况下）
      */
     public T getMinDataNonRecursion() {
         if (rootNode == null) {
@@ -414,7 +417,7 @@ public class BinarySearchTree<T extends Comparable<T>> {
      * 
      * 基于 getMinDataNodeRecursion 方法递归实现
      *
-     * @return 最小的数据 或 null（空树）
+     * @return 最小的数据 或 null（当前为空树的情况下）
      */
     public T getMinDataRecursion() {
         if (rootNode == null) {
@@ -435,7 +438,7 @@ public class BinarySearchTree<T extends Comparable<T>> {
      * 
      * 非递归实现
      *
-     * @return 最大的数据 或 null（空树）
+     * @return 最大的数据 或 null（当前为空树的情况下）
      */
     public T removeMaxDataNodeNonRecursion() {
         if (rootNode == null) {
@@ -462,7 +465,7 @@ public class BinarySearchTree<T extends Comparable<T>> {
      * 
      * 非递归实现
      *
-     * @return 最小的数据 或 null（空树）
+     * @return 最小的数据 或 null（当前为空树的情况下）
      */
     public T removeMinDataNodeNonRecursion() {
         if (rootNode == null) {
@@ -483,31 +486,109 @@ public class BinarySearchTree<T extends Comparable<T>> {
         return curNode.data;
     }
 
+    /**
+     * 删除特定的结点
+     *
+     * 非递归实现
+     * 策略：选择被删结点的“右子树”中的“最小的数据”对应的结点来替换即将被删结点
+     * 另外的策略：也可以选择被删结点的“左子树”中的“最大的数据”对应的结点来替换即将被删结点
+     *
+     * @param data 要删除的结点中的数据
+     */
     public void removeSpecificNodeNonRecursion(T data) {
         // 1、判断是否存在
-        //    1.1、data == null 会抛异常
-        //    1.2、rootNode == null 会抛异常（因为在 containsNonRecursion 方法的逻辑中，rootNode 为 null 返回值一定是 false）
-        //    1.3、“不存在”会抛异常
+        //     1.1、data == null 会抛异常
+        //     1.2、rootNode == null 会抛异常（因为在 containsNonRecursion 方法的逻辑中，rootNode 为 null 返回值一定是 false）
+        //     1.3、“不存在”会抛异常
         if (!containsNonRecursion(data)) {
             throw new IllegalArgumentException("Data does not exist!");
         }
+
+        // 2、下面的逻辑是结点存在
+        // 定位要删除结点的位置
         Node<T> preNode = rootNode;
         Node<T> curNode = rootNode;
-        while (curNode != null) {
+        // 循环过后，curNode 即指向要被删除的结点
+        while (curNode.data.compareTo(data) != 0) {
             preNode = curNode;
-            if (curNode.data.compareTo(data) == 0) {
-                break;
-            } else if (curNode.data.compareTo(data) > 0) {
+            if (curNode.data.compareTo(data) > 0) {
                 curNode = curNode.leftChildNode;
             } else {
                 curNode = curNode.rightChildNode;
             }
         }
+
+        // 要删除的是“根结点”
         if (preNode == curNode) {
-            rootNode = null;
+            if (curNode.leftChildNode == null && curNode.rightChildNode == null) {
+                rootNode = null;
+            }
+            if (curNode.leftChildNode == null && curNode.rightChildNode != null) {
+                rootNode = curNode.rightChildNode;
+            }
+            if (curNode.leftChildNode != null && curNode.rightChildNode == null) {
+                rootNode = curNode.leftChildNode;
+            }
+            if (curNode.leftChildNode != null && curNode.rightChildNode != null) {
+                Node<T> tempCurNode = curNode.rightChildNode;
+                Node<T> tempPreNode = curNode.rightChildNode;
+                while (tempCurNode.leftChildNode != null) {
+                    tempPreNode = tempCurNode;
+                    tempCurNode = tempCurNode.leftChildNode;
+                }
+                if (tempPreNode == tempCurNode) {
+                    curNode.data = tempCurNode.data;
+                    curNode.rightChildNode = null;
+                } else {
+                    curNode.data = tempCurNode.data;
+                    tempPreNode.leftChildNode = null;
+                }
+            }
         } else {
-            // TODO
+            // 要删除的是其他结点
+            // 要删除的结点为“叶子”结点
+            if (curNode.leftChildNode == null && curNode.rightChildNode == null) {
+                if (preNode.data.compareTo(data) > 0) {
+                    preNode.leftChildNode = null;
+                } else {
+                    preNode.rightChildNode = null;
+                }
+            }
+            // 要删除的结点只有“左子树”
+            if (curNode.leftChildNode != null && curNode.rightChildNode == null) {
+                if (preNode.data.compareTo(data) > 0) {
+                    preNode.leftChildNode = curNode.leftChildNode;
+                } else {
+                    preNode.rightChildNode = curNode.leftChildNode;
+                }
+            }
+            // 要删除的结点只有“右子树”
+            if (curNode.leftChildNode == null && curNode.rightChildNode != null) {
+                if (preNode.data.compareTo(data) > 0) {
+                    preNode.leftChildNode = curNode.rightChildNode;
+                } else {
+                    preNode.rightChildNode = curNode.rightChildNode;
+                }
+            }
+            // 要删除的结点既有“左子树”又有“右子树”
+            if (curNode.leftChildNode != null && curNode.rightChildNode != null) {
+                // 1、定位要被删除结点的“右子树”中的“最小的数据”对应的结点
+                Node<T> tempPreNode = curNode.rightChildNode;
+                Node<T> tempCurNode = curNode.rightChildNode;
+                while (tempCurNode.leftChildNode != null) {
+                    tempPreNode = tempCurNode;
+                    tempCurNode = tempCurNode.leftChildNode;
+                }
+                if (tempPreNode == tempCurNode) {
+                    curNode.data = tempCurNode.data;
+                    curNode.rightChildNode = null;
+                } else {
+                    curNode.data = tempCurNode.data;
+                    tempPreNode.leftChildNode = null;
+                }
+            }
         }
+        size--;
     }
 
     /**
