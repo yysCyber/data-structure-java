@@ -21,7 +21,7 @@ public class BinarySearchTree<T extends Comparable<T>> {
 
     /**
      * 构造方法
-     * <p>
+     * 
      * 一个“空树”
      */
     public BinarySearchTree() {
@@ -39,7 +39,7 @@ public class BinarySearchTree<T extends Comparable<T>> {
 
     /**
      * 向该二分搜索树中插入结点
-     * <p>
+     * 
      * 非递归实现
      *
      * @param data 要插入的结点中的数据
@@ -76,7 +76,7 @@ public class BinarySearchTree<T extends Comparable<T>> {
 
     /**
      * 向该二分搜索树中插入结点
-     * <p>
+     * 
      * 基于 addNodeRecursionOne 方法递归实现
      *
      * @param data 要插入的结点中的数据
@@ -123,7 +123,7 @@ public class BinarySearchTree<T extends Comparable<T>> {
 
     /**
      * 向该二分搜索树中插入结点
-     * <p>
+     * 
      * 基于 addNodeRecursionTwo 方法递归实现
      * 难！！！
      *
@@ -135,7 +135,7 @@ public class BinarySearchTree<T extends Comparable<T>> {
 
     /**
      * “向该二分搜索树中插入结点”的第二种递归方法
-     * <p>
+     * 
      * 难！！！
      *
      * @param rootNode 根结点
@@ -157,7 +157,7 @@ public class BinarySearchTree<T extends Comparable<T>> {
 
     /**
      * 中序遍历
-     * <p>
+     * 
      * 基于 inorderTraversalRecursion 方法递归实现
      *
      * @return List
@@ -186,7 +186,7 @@ public class BinarySearchTree<T extends Comparable<T>> {
 
     /**
      * 先（前）序遍历
-     * <p>
+     * 
      * 基于 preorderTraversalRecursion 方法递归实现
      *
      * @return List
@@ -203,7 +203,7 @@ public class BinarySearchTree<T extends Comparable<T>> {
      * @param rootNode 根结点
      * @param list     List
      */
-    private void preorderTraversalRecursion(Node<T> rootNode, List<T> list) {
+    private void preorderTraversalRecursion(Node<T> rootNode, @NotNull List<T> list) {
         if (rootNode == null) {
             return;
         }
@@ -214,7 +214,7 @@ public class BinarySearchTree<T extends Comparable<T>> {
 
     /**
      * 后序遍历
-     * <p>
+     * 
      * 基于 postorderTraversalRecursion 方法递归实现
      *
      * @return List
@@ -231,7 +231,7 @@ public class BinarySearchTree<T extends Comparable<T>> {
      * @param rootNode 根结点
      * @param list     List
      */
-    private void postorderTraversalRecursion(Node<T> rootNode, List<T> list) {
+    private void postorderTraversalRecursion(Node<T> rootNode, @NotNull List<T> list) {
         if (rootNode == null) {
             return;
         }
@@ -242,7 +242,7 @@ public class BinarySearchTree<T extends Comparable<T>> {
 
     /**
      * 先（前）序遍历
-     * <p>
+     * 
      * 非递归遍历
      *
      * @return List
@@ -294,7 +294,7 @@ public class BinarySearchTree<T extends Comparable<T>> {
 
     /**
      * 判断二分搜索树中是否存在要找的数据
-     * <p>
+     * 
      * 非递归实现
      *
      * @param data 要查找的数据
@@ -319,7 +319,7 @@ public class BinarySearchTree<T extends Comparable<T>> {
 
     /**
      * 判断二分搜索树中是否存在要找的数据
-     * <p>
+     * 
      * 基于 containsRecursion 方法递归实现
      *
      * @param data 要查找的数据
@@ -339,7 +339,7 @@ public class BinarySearchTree<T extends Comparable<T>> {
      * @param data     要查找的数据
      * @return 是否存在要查找的数据
      */
-    private boolean containsRecursion(Node<T> rootNode, T data) {
+    private boolean containsRecursion(Node<T> rootNode, @NotNull T data) {
         if (rootNode == null) {
             return false;
         }
@@ -354,7 +354,7 @@ public class BinarySearchTree<T extends Comparable<T>> {
 
     /**
      * 获取最大的数据
-     * <p>
+     * 
      * 非递归实现
      *
      * @return 最大的数据 或 null（空树）
@@ -372,7 +372,7 @@ public class BinarySearchTree<T extends Comparable<T>> {
 
     /**
      * 获取最大的数据
-     * <p>
+     * 
      * 基于 getMaxDataNodeRecursion 方法递归实现
      *
      * @return 最大的数据 或 null（空树）
@@ -384,7 +384,7 @@ public class BinarySearchTree<T extends Comparable<T>> {
         return getMaxDataNodeRecursion(rootNode).data;
     }
 
-    private Node<T> getMaxDataNodeRecursion(Node<T> rootNode) {
+    private Node<T> getMaxDataNodeRecursion(@NotNull Node<T> rootNode) {
         if (rootNode.rightChildNode == null) {
             return rootNode;
         }
@@ -393,7 +393,7 @@ public class BinarySearchTree<T extends Comparable<T>> {
 
     /**
      * 获取最小的数据
-     * <p>
+     * 
      * 非递归实现
      *
      * @return 最小的数据 或 null（空树）
@@ -411,7 +411,7 @@ public class BinarySearchTree<T extends Comparable<T>> {
 
     /**
      * 获取最小的数据
-     * <p>
+     * 
      * 基于 getMinDataNodeRecursion 方法递归实现
      *
      * @return 最小的数据 或 null（空树）
@@ -423,7 +423,7 @@ public class BinarySearchTree<T extends Comparable<T>> {
         return getMinDataNodeRecursion(rootNode).data;
     }
 
-    private Node<T> getMinDataNodeRecursion(Node<T> rootNode) {
+    private Node<T> getMinDataNodeRecursion(@NotNull Node<T> rootNode) {
         if (rootNode.leftChildNode == null) {
             return rootNode;
         }
@@ -432,7 +432,7 @@ public class BinarySearchTree<T extends Comparable<T>> {
 
     /**
      * 删除最大的数据的结点并返回这个最大数据
-     * <p>
+     * 
      * 非递归实现
      *
      * @return 最大的数据 或 null（空树）
@@ -459,7 +459,7 @@ public class BinarySearchTree<T extends Comparable<T>> {
 
     /**
      * 删除最小的数据的结点并返回
-     * <p>
+     * 
      * 非递归实现
      *
      * @return 最小的数据 或 null（空树）
