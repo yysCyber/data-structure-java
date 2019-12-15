@@ -4,7 +4,6 @@ import java.util.*;
  * 二分（叉）搜索（排序）树
  *
  * @param <T> 泛型
- *
  * @author Yuan
  */
 public class BinarySearchTree<T extends Comparable<T>> {
@@ -21,7 +20,7 @@ public class BinarySearchTree<T extends Comparable<T>> {
 
     /**
      * 构造方法
-     *
+     * <p>
      * 一个“空树”
      */
     public BinarySearchTree() {
@@ -39,7 +38,7 @@ public class BinarySearchTree<T extends Comparable<T>> {
 
     /**
      * 向该二分搜索树中插入结点
-     *
+     * <p>
      * 非递归实现
      *
      * @param data 要插入的结点中的数据
@@ -76,7 +75,7 @@ public class BinarySearchTree<T extends Comparable<T>> {
 
     /**
      * 向该二分搜索树中插入结点
-     *
+     * <p>
      * 基于 addNodeRecursionOne 方法递归实现
      *
      * @param data 要插入的结点中的数据
@@ -97,7 +96,7 @@ public class BinarySearchTree<T extends Comparable<T>> {
      * “向该二分搜索树中插入结点”的第一种递归方法
      *
      * @param rootNode 根结点
-     * @param data 要插入的结点中的数据
+     * @param data     要插入的结点中的数据
      */
     private void addNodeRecursionOne(Node<T> rootNode, T data) {
         if (rootNode.data.compareTo(data) == 0) {
@@ -123,7 +122,7 @@ public class BinarySearchTree<T extends Comparable<T>> {
 
     /**
      * 向该二分搜索树中插入结点
-     *
+     * <p>
      * 基于 addNodeRecursionTwo 方法递归实现
      * 难！！！
      *
@@ -135,11 +134,11 @@ public class BinarySearchTree<T extends Comparable<T>> {
 
     /**
      * “向该二分搜索树中插入结点”的第二种递归方法
-     *
+     * <p>
      * 难！！！
      *
      * @param rootNode 根结点
-     * @param data 要插入的结点中的数据
+     * @param data     要插入的结点中的数据
      * @return Node
      */
     private Node<T> addNodeRecursionTwo(Node<T> rootNode, T data) {
@@ -158,7 +157,7 @@ public class BinarySearchTree<T extends Comparable<T>> {
 
     /**
      * 中序遍历
-     *
+     * <p>
      * 基于 inorderTraversalRecursion 方法递归实现
      *
      * @return List
@@ -173,21 +172,21 @@ public class BinarySearchTree<T extends Comparable<T>> {
      * 递归将中序遍历结果存到 List 中
      *
      * @param rootNode 根结点
-     * @param list List
+     * @param list     List
      */
     private void inorderTraversalRecursion(Node<T> rootNode, List<T> list) {
         if (rootNode == null) {
             return;
-        } else {
-            inorderTraversalRecursion(rootNode.leftChildNode, list);
-            list.add(rootNode.data);
-            inorderTraversalRecursion(rootNode.rightChildNode, list);
         }
+        inorderTraversalRecursion(rootNode.leftChildNode, list);
+        list.add(rootNode.data);
+        inorderTraversalRecursion(rootNode.rightChildNode, list);
+
     }
 
     /**
      * 先（前）序遍历
-     *
+     * <p>
      * 基于 preorderTraversalRecursion 方法递归实现
      *
      * @return List
@@ -202,21 +201,20 @@ public class BinarySearchTree<T extends Comparable<T>> {
      * 递归将先（前）序遍历结果存到 List 中
      *
      * @param rootNode 根结点
-     * @param list List
+     * @param list     List
      */
     private void preorderTraversalRecursion(Node<T> rootNode, List<T> list) {
         if (rootNode == null) {
             return;
-        } else {
-            list.add(rootNode.data);
-            preorderTraversalRecursion(rootNode.leftChildNode, list);
-            preorderTraversalRecursion(rootNode.rightChildNode, list);
         }
+        list.add(rootNode.data);
+        preorderTraversalRecursion(rootNode.leftChildNode, list);
+        preorderTraversalRecursion(rootNode.rightChildNode, list);
     }
 
     /**
      * 后序遍历
-     *
+     * <p>
      * 基于 postorderTraversalRecursion 方法递归实现
      *
      * @return List
@@ -231,21 +229,20 @@ public class BinarySearchTree<T extends Comparable<T>> {
      * 递归将后序遍历结果存到 List 中
      *
      * @param rootNode 根结点
-     * @param list List
+     * @param list     List
      */
     private void postorderTraversalRecursion(Node<T> rootNode, List<T> list) {
         if (rootNode == null) {
             return;
-        } else {
-            postorderTraversalRecursion(rootNode.leftChildNode, list);
-            postorderTraversalRecursion(rootNode.rightChildNode, list);
-            list.add(rootNode.data);
         }
+        postorderTraversalRecursion(rootNode.leftChildNode, list);
+        postorderTraversalRecursion(rootNode.rightChildNode, list);
+        list.add(rootNode.data);
     }
 
     /**
      * 先（前）序遍历
-     *
+     * <p>
      * 非递归遍历
      *
      * @return List
@@ -297,7 +294,7 @@ public class BinarySearchTree<T extends Comparable<T>> {
 
     /**
      * 判断二分搜索树中是否存在要找的数据
-     *
+     * <p>
      * 非递归实现
      *
      * @param data 要查找的数据
@@ -322,7 +319,7 @@ public class BinarySearchTree<T extends Comparable<T>> {
 
     /**
      * 判断二分搜索树中是否存在要找的数据
-     *
+     * <p>
      * 基于 containsRecursion 方法递归实现
      *
      * @param data 要查找的数据
@@ -339,26 +336,25 @@ public class BinarySearchTree<T extends Comparable<T>> {
      * “判断二分搜索树中是否存在要找的数据”的递归方法
      *
      * @param rootNode 根节点
-     * @param data 要查找的数据
+     * @param data     要查找的数据
      * @return 是否存在要查找的数据
      */
     private boolean containsRecursion(Node<T> rootNode, T data) {
         if (rootNode == null) {
             return false;
+        }
+        if (rootNode.data.compareTo(data) == 0) {
+            return true;
+        } else if (rootNode.data.compareTo(data) > 0) {
+            return containsRecursion(rootNode.leftChildNode, data);
         } else {
-            if (rootNode.data.compareTo(data) == 0) {
-                return true;
-            } else if (rootNode.data.compareTo(data) > 0) {
-                return containsRecursion(rootNode.leftChildNode, data);
-            } else {
-                return containsRecursion(rootNode.rightChildNode, data);
-            }
+            return containsRecursion(rootNode.rightChildNode, data);
         }
     }
 
     /**
      * 获取最大的数据
-     *
+     * <p>
      * 非递归实现
      *
      * @return 最大的数据 或 null（空树）
@@ -366,18 +362,17 @@ public class BinarySearchTree<T extends Comparable<T>> {
     public T getMaxDataNonRecursion() {
         if (rootNode == null) {
             return null;
-        } else {
-            Node<T> curNode = rootNode;
-            while (curNode.rightChildNode != null) {
-                curNode = curNode.rightChildNode;
-            }
-            return curNode.data;
         }
+        Node<T> curNode = rootNode;
+        while (curNode.rightChildNode != null) {
+            curNode = curNode.rightChildNode;
+        }
+        return curNode.data;
     }
 
     /**
      * 获取最大的数据
-     *
+     * <p>
      * 基于 getMaxDataNodeRecursion 方法递归实现
      *
      * @return 最大的数据 或 null（空树）
@@ -385,22 +380,20 @@ public class BinarySearchTree<T extends Comparable<T>> {
     public T getMaxDataRecursion() {
         if (rootNode == null) {
             return null;
-        } else {
-            return getMaxDataNodeRecursion(rootNode).data;
         }
+        return getMaxDataNodeRecursion(rootNode).data;
     }
 
     private Node<T> getMaxDataNodeRecursion(Node<T> rootNode) {
         if (rootNode.rightChildNode == null) {
             return rootNode;
-        } else {
-            return getMaxDataNodeRecursion(rootNode.rightChildNode);
         }
+        return getMaxDataNodeRecursion(rootNode.rightChildNode);
     }
 
     /**
      * 获取最小的数据
-     *
+     * <p>
      * 非递归实现
      *
      * @return 最小的数据 或 null（空树）
@@ -408,18 +401,17 @@ public class BinarySearchTree<T extends Comparable<T>> {
     public T getMinDataNonRecursion() {
         if (rootNode == null) {
             return null;
-        } else {
-            Node<T> curNode = rootNode;
-            while (curNode.leftChildNode != null) {
-                curNode = curNode.leftChildNode;
-            }
-            return curNode.data;
         }
+        Node<T> curNode = rootNode;
+        while (curNode.leftChildNode != null) {
+            curNode = curNode.leftChildNode;
+        }
+        return curNode.data;
     }
 
     /**
      * 获取最小的数据
-     *
+     * <p>
      * 基于 getMinDataNodeRecursion 方法递归实现
      *
      * @return 最小的数据 或 null（空树）
@@ -427,22 +419,20 @@ public class BinarySearchTree<T extends Comparable<T>> {
     public T getMinDataRecursion() {
         if (rootNode == null) {
             return null;
-        } else {
-            return getMinDataNodeRecursion(rootNode).data;
         }
+        return getMinDataNodeRecursion(rootNode).data;
     }
 
     private Node<T> getMinDataNodeRecursion(Node<T> rootNode) {
         if (rootNode.leftChildNode == null) {
             return rootNode;
-        } else {
-            return getMinDataNodeRecursion(rootNode.leftChildNode);
         }
+        return getMinDataNodeRecursion(rootNode.leftChildNode);
     }
 
     /**
      * 删除最大的数据的结点并返回这个最大数据
-     *
+     * <p>
      * 非递归实现
      *
      * @return 最大的数据 或 null（空树）
@@ -469,7 +459,7 @@ public class BinarySearchTree<T extends Comparable<T>> {
 
     /**
      * 删除最小的数据的结点并返回
-     *
+     * <p>
      * 非递归实现
      *
      * @return 最小的数据 或 null（空树）
@@ -516,55 +506,7 @@ public class BinarySearchTree<T extends Comparable<T>> {
         if (preNode == curNode) {
             rootNode = null;
         } else {
-            
-            // 实际上，能走到这步，curNode != null 是恒成立的，这里写判断之后避免 IDE 警告
-            /*if (curNode != null) {
-                if (curNode.leftChildNode == null && curNode.rightChildNode == null) {
-                    // 下面的判断 preNode.data.compareTo(data) == 0 是恒不成立的
-                    if (preNode.data.compareTo(data) > 0) {
-                        preNode.leftChildNode = null;
-                    } else {
-                        preNode.rightChildNode = null;
-                    }
-                } else if (curNode.leftChildNode == null) {
-                    // 要被删除的结点只存在“右子树”
-                    // 下面的判断 preNode.data.compareTo(data) == 0 是恒不成立的
-                    if (preNode.data.compareTo(data) > 0) {
-                        preNode.leftChildNode = curNode.rightChildNode;
-                    } else {
-                        preNode.rightChildNode = curNode.rightChildNode;
-                    }
-                } else if (curNode.rightChildNode == null) {
-                    // 要被删除的结点只存在“左子树”
-                    // 下面的判断 preNode.data.compareTo(data) == 0 是恒不成立的
-                    if (preNode.data.compareTo(data) > 0) {
-                        preNode.leftChildNode = curNode.leftChildNode;
-                    } else {
-                        preNode.rightChildNode = curNode.leftChildNode;
-                    }
-                } else {
-                    // 要被删除的结点既存在“左子树”，又存在“右子树”
-                    // 找到一个结点来替代将要被删除的结点，根据“二分搜索树”的规律，要被删除的结点的“右子树”中的“最左下”的结点是最合适的
-                    // 即：要被删除的结点的“右子树”中的最小的数据所对应的结点
-
-                    // tempCurNode 定位“右子树”中最小的数据所对应的结点
-                    Node<T> tempCurNode = curNode.rightChildNode;
-                    Node<T> tempPreNode = curNode.rightChildNode;
-                    while (tempCurNode.leftChildNode != null) {
-                        tempPreNode = tempCurNode;
-                        tempCurNode = tempCurNode.leftChildNode;
-                    }
-                    // 替换
-                    curNode.data = tempCurNode.data;
-                    // 删除“右子树”中最小的数据所对应的结点
-                    if (tempCurNode == tempPreNode) {
-                        curNode.rightChildNode = null;
-                    } else {
-                        tempPreNode.leftChildNode = tempCurNode.rightChildNode;
-                    }
-                }
-                size--;
-            }*/
+            // TODO
         }
     }
 
