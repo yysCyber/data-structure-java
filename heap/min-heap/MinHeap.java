@@ -55,7 +55,7 @@ public class MinHeap<T extends Comparable<T>> {
         return result;
     }
 
-    public T replaceMinElement(T newElem) {
+    public T replaceMinElement(@NotNull T newElem) {
         T result = getMinElement();
         data.setElement(newElem, 0);
         siftDown(0);
