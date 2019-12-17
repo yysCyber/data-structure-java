@@ -6,10 +6,10 @@
 public class MaxHeapPriorityQueue<T extends Comparable<T>> implements Queue<T> {
 
     private MaxHeap<T> maxHeap;
-	
-	public MaxHeapPriorityQueue() {
-		maxHeap = new MaxHeap<>();
-	}
+
+    public MaxHeapPriorityQueue() {
+        maxHeap = new MaxHeap<>();
+    }
 
     @Override
     public int getSize() {
