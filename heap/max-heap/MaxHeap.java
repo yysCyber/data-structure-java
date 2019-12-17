@@ -1,3 +1,5 @@
+import org.jetbrains.annotations.NotNull;
+
 /**
  * 基于“动态数组”实现 max heap
  *
@@ -5,7 +7,7 @@
  * 索引0正常使用即索引0表示根，
  * 当然，也可以索引0不使用，自索引1开始使用，相关的 getParentIndex、getLeftChildIndex、getRightChildIndex 也要调整
  *
- * @param <T> 泛型
+ * @param <T>
  */
 public class MaxHeap<T extends Comparable<T>> {
 
@@ -47,7 +49,7 @@ public class MaxHeap<T extends Comparable<T>> {
      *
      * @param elem 元素
      */
-    public void addElement(T elem) {
+    public void addElement(@NotNull T elem) {
         // 先将元素插入到末尾
         data.addElementAtLast(elem);
         // 使用 siftUp 方法根据堆的性质调整新插入元素的位置
@@ -89,7 +91,7 @@ public class MaxHeap<T extends Comparable<T>> {
      * @param newElem 新插入堆的元素
      * @return 插入新元素之前堆中的最大元素
      */
-    public T replaceMaxElementOne(T newElem) {
+    public T replaceMaxElementOne(@NotNull T newElem) {
         T result = getMaxElement();
         removeMaxElement();
         addElement(newElem);
@@ -104,7 +106,7 @@ public class MaxHeap<T extends Comparable<T>> {
      * @param newElem 新插入堆的元素
      * @return 插入新元素之前堆中的最大元素
      */
-    public T replaceMaxElementTwo(T newElem) {
+    public T replaceMaxElementTwo(@NotNull T newElem) {
         T result = getMaxElement();
         data.setElement(newElem, 0);
         siftDown(0);
