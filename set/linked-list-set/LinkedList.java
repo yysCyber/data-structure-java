@@ -1,3 +1,5 @@
+import org.jetbrains.annotations.NotNull;
+
 public class LinkedList<T> {
 
     private Node<T> dummyHead;
@@ -8,39 +10,41 @@ public class LinkedList<T> {
         size = 0;
     }
 
-    public void addNode(T elem, int index) {
+    public void addNode(@NotNull T data, int index) {
         if (index < 0 || index > size) {
-            throw new IllegalArgumentException("Error Index!");
+            throw new IllegalArgumentException("Index is error!");
         }
-        Node<T> pre = dummyHead;
+        Node<T> preNode = dummyHead;
         for (int i = 0; i < index; i++) {
-            pre = pre.next;
+            preNode = preNode.next;
         }
-        pre.next = new Node<T>(elem, pre.next);
+        Node<T> newNode = new Node<>(data, null);
+        newNode.next = preNode.next;
+        preNode.next = newNode;
         size++;
     }
 
-    public void addNodeAtFront(T elem) {
-        addNode(elem, 0);
+    public void addNodeAtFront(@NotNull T data) {
+        addNode(data, 0);
     }
 
-    public void addNodeAtRear(T elem) {
-        addNode(elem, size);
+    public void addNodeAtRear(@NotNull T data) {
+        addNode(data, size);
     }
 
     public T removeNode(int index) {
         if (index < 0 || index >= size) {
-            throw new IllegalArgumentException("Error Index!");
+            throw new IllegalArgumentException("Index is error!");
         }
-        Node<T> pre = dummyHead;
+        Node<T> preNode = dummyHead;
         for (int i = 0; i < index; i++) {
-            pre = pre.next;
+            preNode = preNode.next;
         }
-        Node<T> deleteNode = pre.next;
-        T result = deleteNode.elem;
-        pre.next = deleteNode.next;
-        deleteNode.next = null;
+        Node<T> deleteNode = preNode.next;
+        T result = deleteNode.data;
+        preNode.next = deleteNode.next;
         size--;
+        deleteNode.next = null;
         return result;
     }
 
@@ -52,103 +56,98 @@ public class LinkedList<T> {
         return removeNode(size - 1);
     }
 
-    public void removeNode(T elem) {
-        Node<T> pre = dummyHead;
-        while (pre.next != null) {
-            if (pre.next.elem.equals(elem)) {
-                break;
+    public void removeSpecificNode(@NotNull T data) {
+        Node<T> preNode = dummyHead;
+        while (preNode.next != null) {
+            if (preNode.next.data.equals(data)) {
+                Node<T> deleteNode = preNode.next;
+                preNode.next = deleteNode.next;
+                size--;
+                deleteNode.next = null;
+            } else {
+                preNode = preNode.next;
             }
-            pre = pre.next;
         }
-        if (pre.next != null) {
-            Node<T> cur = pre.next;
-            pre.next = cur.next;
-            cur.next = null;
-            cur = null;
-        }
-
     }
 
-    public T getElement(int index) {
-        if (index < 0 || index >= size) {
-            throw new IllegalArgumentException("Error Index!");
+    public T getDataAtFrontNode() {
+        if (dummyHead.next == null) {
+            return null;
         }
-        Node<T> cur = dummyHead.next;
-        for (int i = 0; i < index; i++) {
-            cur = cur.next;
+        return dummyHead.next.data;
+    }
+
+    public T getDataAtRearNode() {
+        if (dummyHead.next == null) {
+            return null;
         }
-        return cur.elem;
+        Node<T> curNode = dummyHead.next;
+        while (curNode.next != null) {
+            curNode = curNode.next;
+        }
+        return curNode.data;
     }
 
-    public T getElementAtFront() {
-        return getElement(0);
-    }
-
-    public T getElementAtRear() {
-        return getElement(size - 1);
-    }
-
-    public boolean contains(T elem) {
-        Node<T> node = dummyHead.next;
-        while (node != null) {
-            if (node.elem.equals(elem)) {
+    public boolean contains(@NotNull T data) {
+        Node<T> curNode = dummyHead.next;
+        while (curNode != null) {
+            if (curNode.data.equals(data)) {
                 return true;
             }
-            node = node.next;
+            curNode = curNode.next;
         }
         return false;
-    }
-
-    public int getSize() {
-        return size;
     }
 
     public boolean isEmpty() {
         return size == 0;
     }
 
+    public int getSize() {
+        return size;
+    }
+
     @Override
     public String toString() {
+        Node<T> curNode = dummyHead.next;
         StringBuilder sb = new StringBuilder();
         sb.append("LinkedList: [");
-        Node<T> cur = dummyHead.next;
-        while (cur != null) {
-            sb.append(cur.elem);
-            if (cur.next != null) {
+        while (curNode != null) {
+            sb.append(curNode.data);
+            if (curNode.next != null) {
                 sb.append(", ");
             }
-            cur = cur.next;
+            curNode = curNode.next;
         }
         sb.append("]");
         return sb.toString();
     }
 
-    /**
-     * Node
-     *
-     * @param <T> 泛型
-     */
+
     private static class Node<T> {
 
-        T elem;
+        T data;
         Node<T> next;
 
-        public Node(T elem, Node<T> next) {
-            this.elem = elem;
+        Node(T data, Node<T> next) {
+            this.data = data;
             this.next = next;
         }
 
-        public Node(T elem) {
-            this(elem, null);
+        Node(T data) {
+            this(data, null);
         }
 
-        public Node() {
+        Node() {
             this(null, null);
         }
 
         @Override
         public String toString() {
-            return elem.toString();
+            if (data != null) {
+                return data.toString();
+            }
+            return super.toString();
         }
 
     }

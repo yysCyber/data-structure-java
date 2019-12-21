@@ -1,41 +1,38 @@
-/**
- * 基于“链表”的 Set
- *
- * @param <T> 泛型
- */
+import org.jetbrains.annotations.NotNull;
+
 public class LinkedListSet<T> implements Set<T> {
 
-    private LinkedList<T> linkedList;
+    private LinkedList<T> set;
 
     public LinkedListSet() {
-        linkedList = new LinkedList<>();
+        set = new LinkedList<>();
     }
 
     @Override
-    public void add(T elem) {
-        if (!contains(elem)) {
-            linkedList.addNodeAtFront(elem);
+    public void add(@NotNull T elem) {
+        if (!set.contains(elem)) {
+            set.addNodeAtRear(elem);
         }
     }
 
     @Override
-    public void remove(T elem) {
-        linkedList.removeNode(elem);
+    public void remove(@NotNull T elem) {
+        set.removeSpecificNode(elem);
     }
 
     @Override
-    public boolean contains(T elem) {
-        return linkedList.contains(elem);
+    public boolean contains(@NotNull T elem) {
+        return set.contains(elem);
     }
 
     @Override
     public int getSize() {
-        return linkedList.getSize();
+        return set.getSize();
     }
 
     @Override
     public boolean isEmpty() {
-        return linkedList.isEmpty();
+        return set.isEmpty();
     }
 
 }
