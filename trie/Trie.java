@@ -1,3 +1,4 @@
+import org.jetbrains.annotations.NotNull;
 import java.util.TreeMap;
 
 /**
@@ -22,7 +23,7 @@ public class Trie {
      *
      * @param word 单词
      */
-    public void addNode(String word) {
+    public void addNode(@NotNull String word) {
         Node curNode = rootNode;
         for (int i = 0; i < word.length(); i++) {
             Character c = word.charAt(i);
@@ -46,7 +47,7 @@ public class Trie {
      * @param word 单词
      * @return 在“字典树”中是否存在这一单词
      */
-    public boolean contains(String word) {
+    public boolean contains(@NotNull String word) {
         Node curNode = rootNode;
         for (int i = 0; i < word.length(); i++) {
             Character c = word.charAt(i);
@@ -64,7 +65,7 @@ public class Trie {
      * @param prefix 前缀
      * @return 在“字典树”中是否存在这一前缀
      */
-    public boolean containsPrefix(String prefix) {
+    public boolean containsPrefix(@NotNull String prefix) {
         Node curNode = rootNode;
         for (int i = 0; i < prefix.length(); i++) {
             Character c = prefix.charAt(i);
