@@ -17,7 +17,7 @@ public class Trie {
     }
 
     /**
-     * 向“字典树”中添加一个“单词”结点
+     * 向“字典树”中添加一个“单词”
      *
      * 非递归实现
      *
@@ -38,6 +38,30 @@ public class Trie {
         if (!curNode.isWord) {
             curNode.isWord = true;
             size++;
+        }
+    }
+
+    /**
+     * 从“字典树”中移除一个“单词”
+     *
+     * @param word 单词
+     */
+    public void removeNode(@NotNull String word) {
+        Node curNode = rootNode;
+        for (int i = 0; i < word.length(); i++) {
+            Character c = word.charAt(i);
+            if (!curNode.next.containsKey(c) || curNode.next.get(c) == null) {
+                break;
+            }
+            curNode = curNode.next.get(c);
+        }
+        if (curNode.isWord) {
+            if (curNode.next.size() != 0) {
+                curNode.isWord = false;
+            } else {
+                // TODO 删除
+            }
+            size--;
         }
     }
 
